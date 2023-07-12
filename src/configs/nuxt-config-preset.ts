@@ -20,6 +20,7 @@ import { getStyleConfig } from "./modules/style";
 import { getTailwindConfig } from "./modules/tailwind";
 import { getTestsConfig } from "./modules/tests";
 import { getVueConfig } from "./modules/vue";
+import { Linter } from "@typescript-eslint/utils/dist/ts-eslint";
 
 export function getNuxtConfigPreset () {
     return merge(
@@ -44,5 +45,5 @@ export function getNuxtConfigPreset () {
         getTailwindConfig(),
         getTestsConfig(),
         getVueConfig()
-    );
+    ) as Linter.Config;
 }
