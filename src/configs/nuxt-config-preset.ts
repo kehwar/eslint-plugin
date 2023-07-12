@@ -1,4 +1,4 @@
-import { merge } from "lodash";
+import { mergeWith, isArray } from "lodash";
 import { getArraysConfig } from "./modules/arrays";
 import { getBlocksConfig } from "./modules/blocks";
 import { getCommentsConfig } from "./modules/comments";
@@ -22,28 +22,32 @@ import { getTestsConfig } from "./modules/tests";
 import { getVueConfig } from "./modules/vue";
 import { Linter } from "@typescript-eslint/utils/dist/ts-eslint";
 
-export function getNuxtConfigPreset () {
-    return merge(
-        getPluginsConfig(),
-        getExtensionsConfig(),
-        getArraysConfig(),
-        getBlocksConfig(),
-        getCommentsConfig(),
-        getConditionalsConfig(),
-        getDeclarationsConfig(),
-        getEditorConfig(),
-        getErrorsConfig(),
-        getFilesConfig(),
-        getFunctionsConfig(),
-        getImportsConfig(),
-        getLodashConfig(),
-        getPromisesConfig(),
-        getRegexConfig(),
-        getSonartConfig(),
-        getStoryblockConfig(),
-        getStyleConfig(),
-        getTailwindConfig(),
-        getTestsConfig(),
-        getVueConfig()
+export function getNuxtConfigPreset() {
+    return mergeWith(
+        {},
+        [
+            getPluginsConfig(),
+            getExtensionsConfig(),
+            getArraysConfig(),
+            getBlocksConfig(),
+            getCommentsConfig(),
+            getConditionalsConfig(),
+            getDeclarationsConfig(),
+            getEditorConfig(),
+            getErrorsConfig(),
+            getFilesConfig(),
+            getFunctionsConfig(),
+            getImportsConfig(),
+            getLodashConfig(),
+            getPromisesConfig(),
+            getRegexConfig(),
+            getSonartConfig(),
+            getStoryblockConfig(),
+            getStyleConfig(),
+            getTailwindConfig(),
+            getTestsConfig(),
+            getVueConfig(),
+        ],
+        (objValue, srcValue) => isArray(objValue) ? objValue.concat(srcValue) : undefined
     ) as Linter.Config;
 }
