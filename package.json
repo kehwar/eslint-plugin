@@ -13,7 +13,7 @@
         "build": "rimraf dist && unbuild",
         "test": "vitest",
         "release": "pnpm run build && release-it --ci",
-        "lint": "eslint ."
+        "lint": "pnpm run build && pnpm install && eslint ."
     },
     "dependencies": {
         "@antfu/eslint-config": "^0.39.7",
