@@ -12,7 +12,8 @@
     "scripts": {
         "build": "rimraf dist && unbuild",
         "test": "vitest",
-        "release": "pnpm run build && release-it --ci"
+        "release": "pnpm run build && release-it --ci",
+        "lint": "eslint ."
     },
     "dependencies": {
         "@antfu/eslint-config": "^0.39.7",
@@ -40,7 +41,8 @@
         "@types/node": "^20.4.1",
         "release-it": "^16.1.0",
         "unbuild": "^1.2.1",
-        "vitest": "^0.33.0"
+        "vitest": "^0.33.0",
+        "@kehwar/eslint-plugin": "link:."
     },
     "peerDependencies": {
         "eslint": "^8.38.0"
