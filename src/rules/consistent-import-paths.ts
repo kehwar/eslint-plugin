@@ -137,11 +137,11 @@ function getInternalImportPaths (context: RuleContext<MessageIds, RuleOptions>, 
     // Use the TypeScript import path if available, otherwise resolve the raw import path based on its type.
     const importPath = tsImportPath ?? (isPathRelative(rawImportPath) ? resolveRelativePath(fileDir, rawImportPath) : rawImportPath);
 
-    // Use the raw import path if a TypeScript import path is available. Otherwise, get the absolute import path from the root directory.
-    const absoluteImportPath = tsImportPath != null ? rawImportPath : getAbsolutePathFromRoot(rootDir, importPath, rootAlias);
+    // Get the absolute import path from the root directory.
+    const absoluteImportPath = getAbsolutePathFromRoot(rootDir, importPath, rootAlias);
 
-    // If the raw import path is relative, use it as is. Otherwise, get the relative path from the file directory to the resolved import path.
-    const relativeImportPath = isPathRelative(rawImportPath) ? rawImportPath : getRelativePath(fileDir, importPath);
+    // Get the relative path from the file directory to the resolved import path.
+    const relativeImportPath = getRelativePath(fileDir, importPath);
 
     // Return
     return {
