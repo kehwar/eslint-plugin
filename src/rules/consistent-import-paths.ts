@@ -2,7 +2,9 @@
  * @template https://github.com/MelvinVermeer/eslint-plugin-no-relative-import-paths
  */
 
+import fs from "node:fs";
 import path from "node:path";
+import isCoreModule from "is-core-module";
 import { loadConfig, createMatchPath } from "tsconfig-paths";
 import { createEslintRule } from "../utils";
 import type { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
@@ -122,11 +124,20 @@ function getInternalImportPaths (context: RuleContext<MessageIds, RuleOptions>, 
     // Get the absolute path of the source directory.
     const rootDir = path.join(context.getCwd(), srcDir ?? "");
 
+    // Check if is core module
+    if (isCoreModule(rawImportPath)) return null;
+
+    // Check if is external folder
+    const externalFolders = ["node_modules"].map((folder) => path.join(rootDir, folder));
+    const isExternal = externalFolders.some((folder) => {
+        const packagePath = path.join(folder, rawImportPath);
+        const dirExists = fs.existsSync(packagePath);
+        return dirExists;
+    });
+    if (isExternal) return null;
+
     // Resolve the TypeScript import path.
     const tsImportPath = resolveTSPath(rootDir, rawImportPath);
-
-    // If the TypeScript import path is not found and the raw import path is not internal, return null.
-    if (tsImportPath == null && !isPathInternal(rawImportPath)) return null;
 
     // Get the current file path.
     const filePath = context.getFilename();
@@ -154,12 +165,6 @@ function getInternalImportPaths (context: RuleContext<MessageIds, RuleOptions>, 
 function isPathSameFolder (filePath: string) {
     const normalizedPath = filePath.replace(/\\/g, "/");
     return normalizedPath.startsWith(`./`);
-}
-
-// This function checks if a file path is internal, i.e., it starts with "./", "../", or "/".
-function isPathInternal (filePath: string) {
-    const normalizedPath = filePath.replace(/\\/g, "/");
-    return normalizedPath.startsWith(`./`) || normalizedPath.startsWith(`../`) || normalizedPath.startsWith(`/`);
 }
 
 // This function checks if a file path is relative, i.e., it starts with "./" or "../".
