@@ -130,7 +130,7 @@ function getInternalImportPaths (context: RuleContext<MessageIds, RuleOptions>, 
     // Check if is external folder
     const externalFolders = ["node_modules"].map((folder) => path.join(rootDir, folder));
     const isExternal = externalFolders.some((folder) => {
-        const packagePath = path.join(folder, rawImportPath);
+        const packagePath = path.join(folder, rawImportPath.split("/")[0]);
         const dirExists = fs.existsSync(packagePath);
         return dirExists;
     });
