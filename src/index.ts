@@ -1,9 +1,9 @@
 import { getNuxtConfigPreset } from "./configs/nuxt-config-preset";
-import { getConsistentImportPathsRule } from "./rules/consistent-import-paths";
+import { getScopedImportPathsRule } from "./rules/scoped-import-paths";
 
 export default {
     rules: {
-        "consistent-import-paths": getConsistentImportPathsRule(),
+        "scoped-import-paths": getScopedImportPathsRule(),
     },
     configs: {
         nuxt: getNuxtConfigPreset(),

@@ -32,7 +32,7 @@
         "eslint-plugin-tailwindcss": "^3.13.0",
         "eslint-plugin-unicorn": "^47.0.0",
         "eslint-plugin-vue": "^9.15.1",
-        "is-core-module": "^2.12.1",
+        "glob": "^10.3.3",
         "lodash": "^4.17.21",
         "tsconfig-paths": "^4.2.0",
         "typescript": "^5.1.6"

@@ -3,7 +3,7 @@ import { createEslintConfig } from "../../utils";
 export const getImportsConfig = createEslintConfig({
     rules: {
         /** @see https://github.com/MelvinVermeer/eslint-plugin-no-relative-import-paths */
-        "@kehwar/consistent-import-paths": ["warn", { rootAlias: "~", sameFolder: "relative", parent: "absolute", minimumParentDepth: 3 } ],
+        "@kehwar/scoped-import-paths": ["warn", { rootAlias: "~", globPatterns: ["package.json", "MODULE.md", "FEATURE.md", "FACADE.md", "FIXTURE.md", "nuxt.config.ts"] } ],
 
         /** Enforce absolute paths in named exports */
         "no-restricted-syntax": [

@@ -1,3 +1,3 @@
-import { sayHello } from "~/example/hello";
+import { sayHello } from "../../../hello";
 
 sayHello();
